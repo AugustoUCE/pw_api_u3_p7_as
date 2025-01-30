@@ -2,11 +2,13 @@ package uce.edu.ec.web.api.service;
 
 import java.util.function.Function;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import uce.edu.ec.web.api.repository.IPersonaRepo;
 import uce.edu.ec.web.api.repository.model.Persona;
 import uce.edu.ec.web.api.service.to.PersonaTO;
 
+@ApplicationScoped
 public class PersonaServImpl implements IPersonaServ {
 
     @Inject
