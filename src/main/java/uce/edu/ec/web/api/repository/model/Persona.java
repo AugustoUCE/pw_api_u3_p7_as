@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import net.bytebuddy.implementation.bytecode.constant.IntegerConstant;
+
 
 @Entity
 @Table(name = "persona")
@@ -17,7 +17,7 @@ public class Persona {
     @GeneratedValue(generator = "persona_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "persona_seq", sequenceName = "persona_seq", allocationSize = 1)
     @Column(name = "person_id")
-    private IntegerConstant id;
+    private Integer id;
     @Column(name = "person_nombre")
     private String nombre;
     @Column(name = "person_apellido")
@@ -25,12 +25,24 @@ public class Persona {
     @Column(name = "person_fechaNacimiento")
     private LocalDateTime fechaNacimiento;
 
+    
+    
+    public Persona() {
+    }
+
+    public Persona(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     // SET AND GET
-    public IntegerConstant getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(IntegerConstant id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
