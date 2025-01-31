@@ -32,6 +32,9 @@ If you want to build an _über-jar_, execute the following command:
 ```shell script
 ./mvnw package -Dquarkus.package.jar.type=uber-jar
 ```
+```shell script profe
+./mvnw clean package "-Dquarkus.package.jar.type=uber-jar"
+```
 
 The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
