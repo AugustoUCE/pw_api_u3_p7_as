@@ -4,9 +4,11 @@ import uce.edu.ec.web.api.service.IPersonaServ;
 import uce.edu.ec.web.api.service.to.PersonaTO;
 
 import jakarta.inject.Inject;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
-
 
 @Path("/personas") // servicio
 public class PersonaController {
@@ -21,18 +23,34 @@ public class PersonaController {
     public PersonaTO buscarPorId() {
         Integer id = 1;
         return this.personaServ.buscarPorId(id);
-        //return Response.ok(this.personaServ.buscarPorId(id)).build();
+        // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
 
+    @POST
+    @Path("/guardar")
     public void guardar(PersonaTO persona) {
         this.personaServ.guardar(persona);
     }
 
+    @PUT
+    @Path("/actualizar")
     public void actualizar(PersonaTO persona) {
         this.personaServ.actualizar(persona);
     }
 
+    @PUT
+    @Path("/actualizarParcial")
+    public void actualizarParcial(PersonaTO persona) {
+        PersonaTO tmp = this.personaServ.buscarPorId(persona.getId());
+
+        tmp.setNombre(persona.getNombre());
+        this.personaServ.actualizar(tmp);
+    }
+
+    @DELETE
+    @Path("/eliminar")
     public void eliminar(Integer id) {
+        id = 1;
         this.personaServ.eliminar(id);
     }
 

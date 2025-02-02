@@ -13,6 +13,11 @@ public class PersonaTO implements Serializable {
 
     private LocalDateTime fechaNacimiento;
 
+    
+
+    public PersonaTO() {
+    }
+
     public PersonaTO(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;
@@ -50,6 +55,10 @@ public class PersonaTO implements Serializable {
 
     public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
     }
 
     // SET AND GET
