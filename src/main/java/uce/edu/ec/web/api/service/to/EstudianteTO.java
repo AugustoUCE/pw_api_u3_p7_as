@@ -1,28 +1,32 @@
 package uce.edu.ec.web.api.service.to;
-
 import java.time.LocalDateTime;
 
 
 
-public class PersonaTO  {
-    //private static final long serialVersionUID = -1544399202104638172L;
-    private Integer id;
+public class EstudianteTO {
 
+   
+    private Integer id;
+   
     private String nombre;
 
     private String apellido;
+  
+    private String telefono;
+
+    private String codigo;
 
     private LocalDateTime fechaNacimiento;
 
-    
-
-    public PersonaTO() {
+    public EstudianteTO() {
     }
 
-    public PersonaTO(Integer id, String nombre, String apellido, LocalDateTime fechaNacimiento) {
+    public EstudianteTO(Integer id, String nombre, String apellido, String telefono, String codigo, LocalDateTime fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.telefono = telefono;
+        this.codigo = codigo;
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -50,6 +54,22 @@ public class PersonaTO  {
         this.apellido = apellido;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
@@ -57,9 +77,5 @@ public class PersonaTO  {
     public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-
-  
-
-    // SET AND GET
 
 }

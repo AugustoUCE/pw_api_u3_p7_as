@@ -39,8 +39,8 @@ public class PersonaServImpl implements IPersonaServ {
 
     // declaracion de funciones
     private Function<Persona, PersonaTO> mapTo = p -> {
-        PersonaTO personaTO = new PersonaTO(p.getId(), p.getNombre(), p.getApellido(), p.getFechaNacimiento());
-        return personaTO;
+        PersonaTO persona = new PersonaTO(p.getId(), p.getNombre(), p.getApellido(), p.getFechaNacimiento());
+        return persona;
 
     };
     private Function<PersonaTO, Persona> mapPersona = p -> {

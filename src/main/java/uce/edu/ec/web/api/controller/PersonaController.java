@@ -6,6 +6,7 @@ import uce.edu.ec.web.api.service.to.PersonaTO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -21,7 +22,7 @@ public class PersonaController {
     @GET
     @Path("/buscar") // capacidad
     public PersonaTO buscarPorId() {
-        Integer id = 1;
+        Integer id = 2;
         return this.personaServ.buscarPorId(id);
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
@@ -38,7 +39,7 @@ public class PersonaController {
         this.personaServ.actualizar(persona);
     }
 
-    @PUT
+    @PATCH
     @Path("/actualizarParcial")
     public void actualizarParcial(PersonaTO persona) {
         PersonaTO tmp = this.personaServ.buscarPorId(persona.getId());
@@ -50,7 +51,7 @@ public class PersonaController {
     @DELETE
     @Path("/eliminar")
     public void eliminar(Integer id) {
-        id = 1;
+         id = 1;
         this.personaServ.eliminar(id);
     }
 
