@@ -10,6 +10,7 @@ import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 
 @Path("/personas") // servicio
 public class PersonaController {
@@ -20,9 +21,10 @@ public class PersonaController {
     private IPersonaServ personaServ;
 
     @GET
-    @Path("/buscar") // capacidad
-    public PersonaTO buscarPorId() {
-        Integer id = 2;
+    @Path("/buscar/{id}") // capacidad
+   
+    public PersonaTO buscarPorId( @PathParam("id") Integer id) {
+        
         return this.personaServ.buscarPorId(id);
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }

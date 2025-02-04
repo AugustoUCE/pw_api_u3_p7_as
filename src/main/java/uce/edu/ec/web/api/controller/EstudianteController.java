@@ -7,12 +7,13 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import uce.edu.ec.web.api.service.IEstudianteServ;
 import uce.edu.ec.web.api.service.to.EstudianteTO;
 
 
 @ApplicationScoped
-@Path("/estudiante")
+@Path("/estudiantes")
 public class EstudianteController implements IEstudianteServ {
 
     @Inject
@@ -25,11 +26,11 @@ public class EstudianteController implements IEstudianteServ {
     
         this.estudianteServ.actualizar(estudiante);
     }
-    @Path("/buscar")
+    @Path("/buscar/{id}")
     @GET
     @Override
-    public EstudianteTO buscarPorId(Integer id) {
-       
+    public EstudianteTO buscarPorId(@PathParam("id") Integer id) {
+        
         return this.estudianteServ.buscarPorId(id);
     }
     @Path("/eliminar")
