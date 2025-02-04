@@ -20,7 +20,7 @@ public class EstudianteRepoImpl implements IEstudianteRepo{
 
     @Override
     public Estudiante buscarPorId(Integer id) {
-        // TODO Auto-generated method stub
+        
         return this.entityManager.find(Estudiante.class, id);
     }
 

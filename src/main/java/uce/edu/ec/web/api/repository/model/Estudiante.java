@@ -26,7 +26,7 @@ public class Estudiante {
     private String telefono;
     @Column(name = "estu_codigo")
     private String codigo;
-    @Column(name = "estu_fecha_nacimiento")
+    @Column(name = "estu_fechaNacimiento")
     private LocalDateTime fechaNacimiento;
 
     public Estudiante() {

@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -33,10 +34,11 @@ public class EstudianteController implements IEstudianteServ {
         
         return this.estudianteServ.buscarPorId(id);
     }
-    @Path("/eliminar")
+    @Path("/eliminar/{id}")
     @DELETE 
     @Override
-    public void eliminar(Integer id) {
+
+    public void eliminar(@PathParam("id") Integer id) {
         this.estudianteServ.eliminar(id);
     }
     @Path("/guardar")
@@ -45,6 +47,15 @@ public class EstudianteController implements IEstudianteServ {
     public void guardar(EstudianteTO estudiante) {
         
         this.estudianteServ.guardar(estudiante);
+    }
+
+    @Path("/actualizar/parcial")
+    @PATCH
+    public void actualizarParcial(EstudianteTO estudiante) {
+        EstudianteTO tmp = this.estudianteServ.buscarPorId(estudiante.getId());
+        tmp.setNombre(estudiante.getNombre());
+        tmp.setApellido(estudiante.getApellido());
+        this.estudianteServ.actualizar(tmp);
     }
 
 }
