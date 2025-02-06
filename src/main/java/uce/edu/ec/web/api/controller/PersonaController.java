@@ -4,6 +4,7 @@ import uce.edu.ec.web.api.service.IPersonaServ;
 import uce.edu.ec.web.api.service.to.PersonaTO;
 
 import jakarta.inject.Inject;
+import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
@@ -21,29 +22,31 @@ public class PersonaController {
     private IPersonaServ personaServ;
 
     @GET
-    @Path("/buscar/{id}") // capacidad
-   
-    public PersonaTO buscarPorId( @PathParam("id") Integer id) {
+    @Path("/{id}") // capacidad
+   //configuracion el pathvariable reciba ese valor con si tipo con el argumento del metodo
+    public PersonaTO buscarPorId(@PathParam("id") Integer id) {
         
         return this.personaServ.buscarPorId(id);
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
 
     @POST
-    @Path("/guardar")
+    @Path("")
     public void guardar(PersonaTO persona) {
         this.personaServ.guardar(persona);
     }
 
     @PUT
-    @Path("/actualizar")
-    public void actualizar(PersonaTO persona) {
+    @Path("/{id}")
+    public void actualizar(PersonaTO persona,@PathParam("id") Integer id) {
+        persona.setId(id);
         this.personaServ.actualizar(persona);
     }
 
     @PATCH
-    @Path("/actualizarParcial")
-    public void actualizarParcial(PersonaTO persona) {
+    @Path("/{id}/nuevo/{cedula}")
+    public void actualizarParcial(PersonaTO persona, @PathParam("id") Integer id,@PathParam("cedula") String cedula) {
+        System.out.println(cedula);
         PersonaTO tmp = this.personaServ.buscarPorId(persona.getId());
 
         tmp.setNombre(persona.getNombre());
@@ -51,8 +54,8 @@ public class PersonaController {
     }
 
     @DELETE
-    @Path("/eliminar")
-    public void eliminar(Integer id) {
+    @Path("/{id}")
+    public void eliminar(@PathParam("id") Integer id) {
          id = 1;
         this.personaServ.eliminar(id);
     }
