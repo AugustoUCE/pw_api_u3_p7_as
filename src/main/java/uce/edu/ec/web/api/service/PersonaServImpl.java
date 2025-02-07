@@ -1,6 +1,10 @@
 package uce.edu.ec.web.api.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
+
+
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -19,6 +23,24 @@ public class PersonaServImpl implements IPersonaServ {
         Persona pers = this.personaRepo.buscarPorId(id);
         return this.mapTo.apply(pers);
     }
+
+
+    
+
+    @Override
+    public List<PersonaTO> buscarNombre(String nombre) {
+        return this.mapToList.apply(this.personaRepo.buscarNombre(nombre));
+    }
+
+    @Override
+    public List<PersonaTO> buscarTodos() {
+       return this.mapToList.apply(this.personaRepo.buscarTodos());
+    }
+
+    public List<PersonaTO> buscarNombreApellido(String nombre, String apellido ){
+        return this.mapToList.apply(this.personaRepo.buscarNombreApellido(nombre, apellido));
+    }
+
 
     @Override
     public void guardar(PersonaTO persona) {
@@ -48,5 +70,15 @@ public class PersonaServImpl implements IPersonaServ {
         return persona;
 
     };
+
+    private Function<List<Persona>, List<PersonaTO>> mapToList = p -> {
+        List<PersonaTO> pTo = new ArrayList<>();
+        for (Persona persona : p) {
+            pTo.add(this.mapTo.apply(persona));
+        }
+        return pTo;
+    };
+
+    
 
 }

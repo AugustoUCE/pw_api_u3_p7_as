@@ -4,7 +4,8 @@ import uce.edu.ec.web.api.service.IPersonaServ;
 import uce.edu.ec.web.api.service.to.PersonaTO;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
+import java.util.*;
+
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
@@ -12,6 +13,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 
 @Path("/personas") // servicio
 public class PersonaController {
@@ -30,8 +32,28 @@ public class PersonaController {
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
 
+ 
+@GET
+@Path("")
+
+public List<PersonaTO> buscarTodos(){
+    return this.personaServ.buscarTodos();
+}
+
+
+    @GET
+    @Path("/nombre")
+    public List<PersonaTO> buscarNombre(@QueryParam("nombre") String nombre){
+        return this.personaServ.buscarNombre(nombre);
+    }
+    @GET
+    @Path("/porNombre")
+    public List<PersonaTO> buscarNombre(@QueryParam("nombre") String nombre,@QueryParam("apellido") String apellido){
+        return this.personaServ.buscarNombreApellido(nombre,apellido);
+    }
+
     @POST
-    @Path("")
+    @Path("/nombreApellido")
     public void guardar(PersonaTO persona) {
         this.personaServ.guardar(persona);
     }
@@ -46,7 +68,7 @@ public class PersonaController {
     @PATCH
     @Path("/{id}/nuevo/{cedula}")
     public void actualizarParcial(PersonaTO persona, @PathParam("id") Integer id,@PathParam("cedula") String cedula) {
-        System.out.println(cedula);
+       // System.out.println(cedula);
         PersonaTO tmp = this.personaServ.buscarPorId(persona.getId());
 
         tmp.setNombre(persona.getNombre());
