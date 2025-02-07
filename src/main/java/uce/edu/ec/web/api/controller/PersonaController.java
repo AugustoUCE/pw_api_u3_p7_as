@@ -25,50 +25,50 @@ public class PersonaController {
 
     @GET
     @Path("/{id}") // capacidad
-   //configuracion el pathvariable reciba ese valor con si tipo con el argumento del metodo
+    // configuracion el pathvariable reciba ese valor con si tipo con el argumento
+    // del metodo
     public PersonaTO buscarPorId(@PathParam("id") Integer id) {
-        
+
         return this.personaServ.buscarPorId(id);
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
 
- 
-@GET
-@Path("")
-
-public List<PersonaTO> buscarTodos(){
-    return this.personaServ.buscarTodos();
-}
-
-
     @GET
-    @Path("/nombre")
-    public List<PersonaTO> buscarNombre(@QueryParam("nombre") String nombre){
-        return this.personaServ.buscarNombre(nombre);
+    @Path("")
+
+    public List<PersonaTO> buscarTodos() {
+        return this.personaServ.buscarTodos();
     }
+
     @GET
     @Path("/porNombre")
-    public List<PersonaTO> buscarNombre(@QueryParam("nombre") String nombre,@QueryParam("apellido") String apellido){
-        return this.personaServ.buscarNombreApellido(nombre,apellido);
+    public List<PersonaTO> buscarNombre(@QueryParam("nombre") String nombre) {
+        return this.personaServ.buscarNombre(nombre);
+    }
+
+    @GET
+    @Path("/nombreApellido")
+    public List<PersonaTO> buscarNombreApellido(@QueryParam("nombre") String nombre, @QueryParam("apellido") String apellido) {
+        return this.personaServ.buscarNombreApellido(nombre, apellido);
     }
 
     @POST
-    @Path("/nombreApellido")
+    @Path("")
     public void guardar(PersonaTO persona) {
         this.personaServ.guardar(persona);
     }
 
     @PUT
     @Path("/{id}")
-    public void actualizar(PersonaTO persona,@PathParam("id") Integer id) {
+    public void actualizar(PersonaTO persona, @PathParam("id") Integer id) {
         persona.setId(id);
         this.personaServ.actualizar(persona);
     }
 
     @PATCH
     @Path("/{id}/nuevo/{cedula}")
-    public void actualizarParcial(PersonaTO persona, @PathParam("id") Integer id,@PathParam("cedula") String cedula) {
-       // System.out.println(cedula);
+    public void actualizarParcial(PersonaTO persona, @PathParam("id") Integer id, @PathParam("cedula") String cedula) {
+        // System.out.println(cedula);
         PersonaTO tmp = this.personaServ.buscarPorId(persona.getId());
 
         tmp.setNombre(persona.getNombre());
@@ -78,7 +78,7 @@ public List<PersonaTO> buscarTodos(){
     @DELETE
     @Path("/{id}")
     public void eliminar(@PathParam("id") Integer id) {
-         id = 1;
+        id = 1;
         this.personaServ.eliminar(id);
     }
 

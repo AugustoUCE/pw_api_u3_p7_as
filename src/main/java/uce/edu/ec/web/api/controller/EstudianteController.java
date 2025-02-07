@@ -1,5 +1,7 @@
 package uce.edu.ec.web.api.controller;
 
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -9,9 +11,9 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import uce.edu.ec.web.api.service.IEstudianteServ;
 import uce.edu.ec.web.api.service.to.EstudianteTO;
-
 
 @ApplicationScoped
 @Path("/estudiantes")
@@ -20,32 +22,60 @@ public class EstudianteController implements IEstudianteServ {
     @Inject
     private IEstudianteServ estudianteServ;
 
-    @Path("/actualizar")
+    @Path("/")
     @PUT
     @Override
     public void actualizar(EstudianteTO estudiante) {
-    
+
         this.estudianteServ.actualizar(estudiante);
     }
-    @Path("/buscar/{id}")
+
     @GET
+    @Path("/{id}")
     @Override
     public EstudianteTO buscarPorId(@PathParam("id") Integer id) {
-        
+
         return this.estudianteServ.buscarPorId(id);
     }
-    @Path("/eliminar/{id}")
-    @DELETE 
+
+    @GET
+    @Path("/porNombre")
+    @Override
+    public List<EstudianteTO> buscarNombre(@QueryParam("nombre") String nombre) {
+        // TODO Auto-generated method stub
+        return this.estudianteServ.buscarNombre(nombre);
+    }
+
+    @GET
+    @Path("/nombreApellido")
+    @Override
+    public List<EstudianteTO> buscarNombreApellido(@QueryParam("nombre") String nombre,
+        @QueryParam("apellido") String apellido) {
+        // TODO Auto-generated method stub
+        return this.estudianteServ.buscarNombreApellido(nombre, apellido);
+    }
+
+    @Path("")
+    @GET
+    @Override
+    public List<EstudianteTO> buscarTodos() {
+        // TODO Auto-generated method stub
+        return this.estudianteServ.buscarTodos();
+    }
+
+    @Path("/{id}")
+    @DELETE
     @Override
 
     public void eliminar(@PathParam("id") Integer id) {
         this.estudianteServ.eliminar(id);
     }
-    @Path("/guardar")
+
+    @Path("")
     @POST
     @Override
     public void guardar(EstudianteTO estudiante) {
-        
+
         this.estudianteServ.guardar(estudiante);
     }
 
