@@ -2,7 +2,6 @@ package uce.edu.ec.web.api.controller;
 
 import uce.edu.ec.web.api.service.IPersonaServ;
 import uce.edu.ec.web.api.service.to.PersonaTO;
-
 import jakarta.inject.Inject;
 import java.util.*;
 
@@ -14,6 +13,10 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+
 
 @Path("/personas") // servicio
 public class PersonaController {
@@ -27,9 +30,14 @@ public class PersonaController {
     @Path("/{id}") // capacidad
     // configuracion el pathvariable reciba ese valor con si tipo con el argumento
     // del metodo
-    public PersonaTO buscarPorId(@PathParam("id") Integer id) {
+    //TIPO DE RESPUESTA  QUE SE VA A ENVIAR
+    @Produces(MediaType.APPLICATION_XML)
+    public Response buscarPorId(@PathParam("id") Integer id) {
 
-        return this.personaServ.buscarPorId(id);
+        //los codigos se envia en las cabeceras de las paginas
+
+        return Response.status(240).header("mensaje", "Persona creada pero en proceso de valición....").header("valor1", 500).entity(this.personaServ.buscarPorId(id)).build();
+        //return this.personaServ.buscarPorId(id);
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
 
