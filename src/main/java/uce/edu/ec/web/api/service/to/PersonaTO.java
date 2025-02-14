@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import uce.edu.ec.web.api.repository.model.LocalDateTimeAdapter;
 
 
 @XmlRootElement
@@ -14,7 +16,7 @@ public class PersonaTO  {
     private String nombre;
 
     private String apellido;
-
+   
     private LocalDateTime fechaNacimiento;
 
     
@@ -54,6 +56,7 @@ public class PersonaTO  {
         this.apellido = apellido;
     }
     @XmlElement
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }

@@ -14,8 +14,10 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
 
 
 @Path("/personas") // servicio
@@ -32,6 +34,7 @@ public class PersonaController {
     // del metodo
     //TIPO DE RESPUESTA  QUE SE VA A ENVIAR
     @Produces(MediaType.APPLICATION_XML)
+   
     public Response buscarPorId(@PathParam("id") Integer id) {
 
         //los codigos se envia en las cabeceras de las paginas
@@ -62,6 +65,7 @@ public class PersonaController {
 
     @POST
     @Path("")
+    @Consumes(MediaType.APPLICATION_XML)
     public void guardar(PersonaTO persona) {
         this.personaServ.guardar(persona);
     }
@@ -71,21 +75,29 @@ public class PersonaController {
     public void actualizar(PersonaTO persona, @PathParam("id") Integer id) {
         persona.setId(id);
         this.personaServ.actualizar(persona);
-    }
+        }
 
-    @PATCH
-    @Path("/{id}/nuevo/{cedula}")
-    public void actualizarParcial(PersonaTO persona, @PathParam("id") Integer id, @PathParam("cedula") String cedula) {
-        // System.out.println(cedula);
-        PersonaTO tmp = this.personaServ.buscarPorId(persona.getId());
+        @PATCH
+        @Path("/{id}")
+        @Produces(MediaType.APPLICATION_XML)
+        @Consumes(MediaType.APPLICATION_XML)
+        public Response actualizarParcial(PersonaTO persona, @PathParam("id") Integer id) {
+        PersonaTO tmp = this.personaServ.buscarPorId(id);
 
-        tmp.setNombre(persona.getNombre());
+        if (persona.getNombre() != null) {
+            tmp.setNombre(persona.getNombre());
+        }
+      
+       
+
         this.personaServ.actualizar(tmp);
-    }
 
-    @DELETE
-    @Path("/{id}")
-    public void eliminar(@PathParam("id") Integer id) {
+        return Response.status(200).header("mensaje", "persona parcial actualizada").entity(tmp).build();
+        }
+
+        @DELETE
+        @Path("/{id}")
+        public void eliminar(@PathParam("id") Integer id) {
         id = 1;
         this.personaServ.eliminar(id);
     }
