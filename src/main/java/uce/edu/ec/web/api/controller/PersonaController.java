@@ -33,7 +33,7 @@ public class PersonaController {
     // configuracion el pathvariable reciba ese valor con si tipo con el argumento
     // del metodo
     //TIPO DE RESPUESTA  QUE SE VA A ENVIAR
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
    
     public Response buscarPorId(@PathParam("id") Integer id) {
 
@@ -65,7 +65,8 @@ public class PersonaController {
 
     @POST
     @Path("")
-    @Consumes(MediaType.APPLICATION_XML)
+
+    @Consumes(MediaType.APPLICATION_JSON)
     public void guardar(PersonaTO persona) {
         this.personaServ.guardar(persona);
     }
@@ -79,8 +80,8 @@ public class PersonaController {
 
         @PATCH
         @Path("/{id}")
-        @Produces(MediaType.APPLICATION_XML)
-        @Consumes(MediaType.APPLICATION_XML)
+        @Produces(MediaType.APPLICATION_JSON)
+        @Consumes(MediaType.APPLICATION_JSON)
         public Response actualizarParcial(PersonaTO persona, @PathParam("id") Integer id) {
         PersonaTO tmp = this.personaServ.buscarPorId(id);
 
