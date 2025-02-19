@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 
 
+
 //@XmlRootElement
 public class PersonaTO  {
     //private static final long serialVersionUID = -1544399202104638172L;

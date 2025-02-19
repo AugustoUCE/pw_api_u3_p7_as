@@ -18,8 +18,6 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
-
 @Path("/personas") // servicio
 public class PersonaController {
 
@@ -32,15 +30,16 @@ public class PersonaController {
     @Path("/{id}") // capacidad
     // configuracion el pathvariable reciba ese valor con si tipo con el argumento
     // del metodo
-    //TIPO DE RESPUESTA  QUE SE VA A ENVIAR
+    // TIPO DE RESPUESTA QUE SE VA A ENVIAR
     @Produces(MediaType.APPLICATION_JSON)
-   
+
     public Response buscarPorId(@PathParam("id") Integer id) {
 
-        //los codigos se envia en las cabeceras de las paginas
+        // los codigos se envia en las cabeceras de las paginas
 
-        return Response.status(240).header("mensaje", "Persona creada pero en proceso de valición....").header("valor1", 500).entity(this.personaServ.buscarPorId(id)).build();
-        //return this.personaServ.buscarPorId(id);
+        return Response.status(240).header("mensaje", "Persona creada pero en proceso de valición....")
+                .header("valor1", 500).entity(this.personaServ.buscarPorId(id)).build();
+        // return this.personaServ.buscarPorId(id);
         // return Response.ok(this.personaServ.buscarPorId(id)).build();
     }
 
@@ -59,7 +58,8 @@ public class PersonaController {
 
     @GET
     @Path("/nombreApellido")
-    public List<PersonaTO> buscarNombreApellido(@QueryParam("nombre") String nombre, @QueryParam("apellido") String apellido) {
+    public List<PersonaTO> buscarNombreApellido(@QueryParam("nombre") String nombre,
+            @QueryParam("apellido") String apellido) {
         return this.personaServ.buscarNombreApellido(nombre, apellido);
     }
 
@@ -76,30 +76,28 @@ public class PersonaController {
     public void actualizar(PersonaTO persona, @PathParam("id") Integer id) {
         persona.setId(id);
         this.personaServ.actualizar(persona);
-        }
+    }
 
-        @PATCH
-        @Path("/{id}")
-        @Produces(MediaType.APPLICATION_JSON)
-        @Consumes(MediaType.APPLICATION_JSON)
-        public Response actualizarParcial(PersonaTO persona, @PathParam("id") Integer id) {
+    @PATCH
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response actualizarParcial(PersonaTO persona, @PathParam("id") Integer id) {
         PersonaTO tmp = this.personaServ.buscarPorId(id);
 
         if (persona.getNombre() != null) {
             tmp.setNombre(persona.getNombre());
         }
-      
-       
 
         this.personaServ.actualizar(tmp);
 
         return Response.status(200).header("mensaje", "persona parcial actualizada").entity(tmp).build();
-        }
+    }
 
-        @DELETE
-        @Path("/{id}")
-        public void eliminar(@PathParam("id") Integer id) {
-        id = 1;
+    @DELETE
+    @Path("/{id}")
+    public void eliminar(@PathParam("id") Integer id) {
+       // id = 1;
         this.personaServ.eliminar(id);
     }
 
